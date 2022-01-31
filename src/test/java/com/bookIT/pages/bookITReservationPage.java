@@ -14,8 +14,18 @@ public class bookITReservationPage {
 
     //@FindBy(xpath = "(//span[@class='mat-button-wrapper'])[1]")
     //@FindBy(xpath = "(//div[@class='mat-form-field-infix'])[1]")
-    @FindBy(xpath = "//input[@formcontrolname='date']")
+   // @FindBy(xpath = "//input[@formcontrolname='date']")
+    @FindBy(xpath = "(//span[@class='mat-button-wrapper'])[1]")
     public WebElement inputDate;
+
+    @FindBy(xpath = "//div[@class='mat-calendar-body-cell-content mat-calendar-body-today']")
+    public WebElement todayDate;
+
+    @FindBy(xpath = "//button[@class='mat-calendar-next-button mat-icon-button']")
+    public WebElement nextMonthBtn;
+
+    @FindBy(xpath = "//div[.='1']")
+    public WebElement firstDayOfMonth;
 
     @FindBy(xpath = "//span[.='available solid time']")
     public WebElement availableTimeMsg;
@@ -26,10 +36,11 @@ public class bookITReservationPage {
     @FindBy(xpath = "(//span[@class='mat-option-text'])[1]")
     public WebElement startTime;
 
-    @FindBy(xpath = "//span[contains(text(),'to')]")
+    @FindBy(xpath = "(//div[@class='mat-select-arrow-wrapper'])[2]")
     public WebElement finishTimeBtn;
 
-    @FindBy(xpath = "(//span[@class='mat-option-text'])[1]")
+    //@FindBy(xpath = "//mat-option[@role='option']")
+    @FindBy(xpath = "(//div[@id='cdk-overlay-2']//mat-option[@role='option'])[4]")
     public WebElement finishTime;
 
     @FindBy(xpath = "//span[@class='mat-option-text']")

@@ -8,7 +8,10 @@ import io.cucumber.java.ca.Cal;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -32,17 +35,33 @@ public class bookITReservationStepDefs {
     }
     @When("User enters a date, starting time and ending time")
     public void user_enters_a_date_starting_time_and_ending_time() {
-        String dateFormat =LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy"));
-        Calendar cal = Calendar.getInstance();
+        //String dateFormat =LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMMM dd, yyyy"));
+
         bookITReservationPage.inputDate.click();
-        bookITReservationPage.inputDate.sendKeys(dateFormat);
+        //bookITReservationPage.inputDate.sendKeys(dateFormat);
 //        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
         //loginPage.wait.until(ExpectedConditions.visibilityOf(bookITReservationPage.availableTimeMsg));
+
+        loginPage.wait.until(ExpectedConditions.visibilityOf(bookITReservationPage.nextMonthBtn));
+        int tomorrowDate = Integer.parseInt(bookITReservationPage.todayDate.getText())+1;
+        System.out.println(tomorrowDate);
+        try {
+
+            WebElement nextDate = Driver.getDriver().findElement(By.xpath("//div[.='"+tomorrowDate+"']"));
+
+            nextDate.click();
+        }catch (NoSuchElementException e){
+        bookITReservationPage.nextMonthBtn.click();
+        bookITReservationPage.firstDayOfMonth.click();
+
+        }
+
         bookITReservationPage.startTimeBtn.click();
+        loginPage.wait.until(ExpectedConditions.visibilityOf(bookITReservationPage.startTime));
         bookITReservationPage.startTime.click();
 
         bookITReservationPage.finishTimeBtn.click();
-      // loginPage.wait.until(ExpectedConditions.visibilityOf(bookITReservationPage.finishTime));
+        loginPage.wait.until(ExpectedConditions.elementToBeClickable(bookITReservationPage.finishTime));
         bookITReservationPage.finishTime.click();
 
 
@@ -65,9 +84,9 @@ public class bookITReservationStepDefs {
 
     @Then("User should see confirmation status {string}")
     public void userShouldSeeConfirmationStatus(String msg) {
-        driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+        //driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
 
-        //loginPage.wait.until(ExpectedConditions.visibilityOf(bookITReservationPage.confirmationMsg));
+        loginPage.wait.until(ExpectedConditions.visibilityOf(bookITReservationPage.confirmationMsg));
         Assert.assertEquals(msg,bookITReservationPage.confirmationMsg.getText());
     }
 }

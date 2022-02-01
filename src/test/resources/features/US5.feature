@@ -7,7 +7,7 @@ Feature: My module accessibility
 
   Scenario: My module should show 3 options
     Given User navigates to [my] Module
-    Then 3 options should be displayed:
+    Then Three options should be displayed:
     | self     |
     | team     |
     | sign out |

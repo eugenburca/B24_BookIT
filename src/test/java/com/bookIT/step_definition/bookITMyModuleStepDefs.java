@@ -1,5 +1,7 @@
 package com.bookIT.step_definition;
 
+import com.bookIT.pages.bookITMMSelfPage;
+import com.bookIT.pages.bookITMMTeamPage;
 import com.bookIT.pages.bookITMainPage;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -11,6 +13,8 @@ import java.util.Map;
 public class bookITMyModuleStepDefs {
 
     bookITMainPage myModulePage = new bookITMainPage();
+    bookITMMSelfPage mySelfPage = new bookITMMSelfPage();
+    bookITMMTeamPage teamPage = new bookITMMTeamPage();
 
     @Given("User navigates to [my] Module")
     public void user_navigates_to_my_module() {
@@ -39,16 +43,20 @@ public class bookITMyModuleStepDefs {
 
     @When("All the detail info of the user should be displayed:")
     public void all_the_detail_info_of_the_user_should_be_displayed(Map<String, String> userDetailInfo) {
-
+        System.out.println("Actual detail info of the user = " + mySelfPage.userDetailInfoMap());
+       assertEquals(userDetailInfo, mySelfPage.userDetailInfoMap());
     }
 
     @Then("{string} theme should be on")
     public void theme_should_be_on(String theme) {
-
+        System.out.println("Actual theme is = " + mySelfPage.sideStatus.getText());
+        assertEquals(theme, mySelfPage.sideStatus.getText());
     }
 
     @Then("All the other team members should be displayed")
-    public void all_the_other_team_members_should_be_displayed() {
+    public void all_the_other_team_members_should_be_displayed(List<String> expectedTeamMembers) {
+        System.out.println("All team members: " + teamPage.allTeam());
+        assertEquals(expectedTeamMembers,teamPage.allTeam());
 
     }
 

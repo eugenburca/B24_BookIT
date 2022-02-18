@@ -21,10 +21,15 @@ Feature: My module accessibility
     | team   | HighTech            |
     | batch  | #7                  |
     | campus | VA                  |
-    Then "dark side" theme should be on
+    Then "dark-side" theme should be on
 
   Scenario: User should see all the other team members from teams tab
     Given User navigates to [my] Module
     When User clicks on "team" tab
     Then All the other team members should be displayed
+  | James  |
+  | John   |
+  | Eloisa |
+  | Bess   |
+  | Hunt   |
 
